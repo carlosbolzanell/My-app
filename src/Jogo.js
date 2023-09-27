@@ -1,91 +1,119 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, View, Text} from "react-native";
-import { Button } from "react-native";
+import { StyleSheet, View, Text, Pressable} from "react-native";
 
 export default function Jogo(props){
-    let contador = 1;
-    let jogadorDaVez = 'Jogador 1';
     
-    let setVez = () =>{
-        if(contador%2 == 0){
-            jogadorDaVez = "Jogador 1"
-            contador++
-            return 1
-        }else if(contador%2 == 1){
-            jogadorDaVez = "Jogador 2"
-            return 2
-            contador++
+    const [botoes, setBotoes] = useState([
+        [" ", " ", " "],
+        [" ", " ", " "],
+        [" ", " ", " "]
+    ]);
+
+    const verificarVitoria = ()=>{
+        if(botoes[0][0] == botoes[1][1] && botoes[1][1] == botoes[2][2] && botoes[0][0] != " "){
+            declararVencedor();
         }
-        return "";
-    } 
 
-    let marcador = ()=>{
-        if(setVez() == 1){
-            return 'X';
-        }else if(setVez == 2){
-            return 'O';
+        if(botoes[0][2] == botoes[1][1] && botoes[1][1] == botoes[2][0] && botoes[1][1] != " "){
+            declararVencedor();
         }
-        return " "
+
+        for(let i=0; i<botoes.length; i++){
+            if(botoes[i][0] == botoes [i][1] && botoes[i][0] == botoes[i][2] && botoes[i][0] != " "){
+                declararVencedor();
+            }
+            if(botoes[0][i] == botoes [1][i] && botoes[1][i] == botoes[2][i] && botoes[1][i] != " "){
+                declararVencedor();
+            } 
+        }
+
     }
 
+    const declararVencedor = () =>{
+        if(vez == "X"){
+            alert("O vencedor é: "+props.player1);
+        }else{
+            alert("O vencedor é: "+props.player2);
+        }
+    }
 
-    const [b1, setB1] = useState("");
-    const [b2, setB2] = useState("");
-    const [b3, setB3] = useState("");
-    const [b4, setB4] = useState("");
-    const [b5, setB5] = useState("");
-    const [b6, setB6] = useState("");
-    const [b7, setB7] = useState("");
-    const [b8, setB8] = useState("");
-    const [b9, setB9] = useState("");
+    const trocarVez = () =>{
+        if(vez == "X"){
+            setVez("O");
+        }else{
+            setVez("X");
+        }
+    }
+    
+    const [vez, setVez] = useState("X");
 
-    const handleClickB1 = () =>{
-        setB1(marcador());
-    }
-    const handleClickB2 = () =>{
-        setB2(marcador());
-    }
-    const handleClickB3 = () =>{
-        setB3(marcador());
-    }
-    const handleClickB4 = () =>{
-        setB4(marcador());
-    }
-    const handleClickB5 = () =>{
-        setB5(marcador());
-    }
-    const handleClickB6 = () =>{
-        setB6(marcador());
-    }
-    const handleClickB7 = () =>{
-        setB7(marcador());
-    }
-    const handleClickB8 = () =>{
-        setB8(marcador());
-    }
-    const handleClickB9 = () =>{
-        setB9(marcador());
+
+    function handleClickB(x, o){
+        if(botoes[x][o] === ' '){
+            let novoTabuleiro = botoes;
+            novoTabuleiro[x][o] = vez;
+            setBotoes(novoTabuleiro);
+            setTimeout(verificarVitoria(), 30000);
+            trocarVez();
+            
+        }
     }
 
     return(
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <Text style={styles.title}>Vez de {jogadorDaVez}</Text>
+            <Text style={styles.title}>Vez de</Text>
             <View style={styles.col1}>
-                <Button title = {b1} style={styles.btn} onPress = {handleClickB1}/>
-                <Button title = {b2} style={styles.btn} onPress = {handleClickB2}/>
-                <Button title = {b3} style={styles.btn} onPress = {handleClickB3}/>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(0,0);
+                }}>
+                    <Text>{botoes[0][0]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(0,1);
+                }}>
+                    <Text>{botoes[0][1]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(0,2);
+                }}>
+                    <Text>{botoes[0][2]}</Text>
+                </Pressable>
             </View>
             <View style={styles.col1}>
-                <Button title = {b4} style={styles.btn} onPress = {handleClickB4}/>
-                <Button title = {b5} style={styles.btn} onPress = {handleClickB5} />
-                <Button title = {b6} style={styles.btn} onPress = {handleClickB6}/>
+            <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(1,0);
+                }}>
+                    <Text>{botoes[1][0]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(1,1);
+                }}>
+                    <Text>{botoes[1][1]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(1,2);
+                }}>
+                    <Text>{botoes[1][2]}</Text>
+                </Pressable>
             </View>
             <View style={styles.col1}>
-                <Button title = {b7} style={styles.btn} onPress = {handleClickB7}/>
-                <Button title = {b8} style={styles.btn} onPress = {handleClickB8}/>
-                <Button title = {b9} style={styles.btn} onPress = {handleClickB9}/>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(2,0);
+                }}>
+                    <Text>{botoes[2][0]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(2,1);
+                }}>
+                    <Text>{botoes[2][1]}</Text>
+                </Pressable>
+                <Pressable style={styles.btn} onPress = {()=>{
+                    handleClickB(2,2);
+                }}>
+                    <Text>{botoes[2][2]}</Text>
+                </Pressable>
             </View>
         </View>
     )
@@ -106,9 +134,12 @@ const styles = StyleSheet.create({
       },
       col1: {
         flexDirection: "row",
+        gap: 10,
+        marginBottom: 10,
       },
       btn: {
         width: 40,
         height: 40,
+        backgroundColor: "red"
       }
 });

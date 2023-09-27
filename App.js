@@ -24,7 +24,7 @@ const changeScream = (newScream) => setScream(newScream);
     <View style={styles.container}>
       <StatusBar style="auto" />
       {checkScream('home') && <Home mudarNomeJogadores={setJogadores} changeScream={changeScream} />}
-      {checkScream('jogo') && <Jogo changeScream={changeScream} />}
+      {checkScream('jogo') && <Jogo changeScream={changeScream} player1={player1} player2 = {player2}/>}
     </View>
   );
 }
