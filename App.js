@@ -7,7 +7,7 @@ import Jogo from './src/Jogo'
 
 export default function App() {
 
-const [scream, setScream] = useState("home");
+const [scream, setScream] = useState("jogo");
 const [player1, setPlayer1] = useState("");
 const [player2, setPlayer2] = useState("");
 
