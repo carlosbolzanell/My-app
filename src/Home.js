@@ -1,66 +1,74 @@
+import { Button, View, StyleSheet, Text, Pressable } from "react-native";
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 
-export default function Home(props) {
+export default function Home(props){
+    const handleClick = (x) =>{
+        if(x === 1){
+            props.changeScream('homeVelha');
+        }else if(x === 2){
+            props.changeScream('homeForca');
+        }else{
+            props.changeScream('homeMemoria');
+        }
+    }
 
-const [player1, setPlayer1] = useState("");
-const [player2, setPlayer2] = useState("");
+    return(
+        <View > 
+            <StatusBar style="auto" />
+            <View>
+                <Text style={styles.title}>Bem vindo ao portal dos games!</Text>
+            </View>
+            <View style={styles.botoes}>
+                <Pressable style={styles.botao} onPress = {()=>{
+                    handleClick(1);
+                }}>
+                    <Text style={styles.text}>
+                        Jogo da Velha
+                    </Text>
+                </Pressable>
+            
+                <Pressable style={styles.botao} onPress={()=>{~
+                    handleClick(2)
+                }}>
+                    <Text style={styles.text}>
+                        Jogo da Forca
+                    </Text>
+                </Pressable>
+                
+                <Pressable onPress={()=>{
+                    handleClick(3);   
+                }} style={styles.botao}>
+                    <Text style={styles.text}>
+                        Jogo da Memória
+                    </Text>
+                </Pressable>
 
-const handClick = ()=>{
-    if(player1 === "" || player2 ===""){
-        alert("Erro, digite um nome válido");
-    }else{
-      alert(player1 +" x "+ player2);
-      props.mudarNomeJogadores(player1, player2);
-      props.changeScream('jogo')
-  }
-}
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bem vindo ao Jogo da Velha digite o nome dos jogadores 1 e 2</Text>
-      <Text style={styles.text}>Nome: {player1}</Text>
-      <TextInput style={styles.input} placeholderTextColor = "white" placeholder="Player 1" onChangeText={setPlayer1} />
-      <Text style={styles.text}>Nome: {player2}</Text>
-      <TextInput style={styles.input} placeholderTextColor = "white" placeholder="Player 2" onChangeText={setPlayer2} />
-      <Button title='Me aperte' onPress={handClick}/>
-      <StatusBar style="auto" />
-    </View>
-  );
+            </View>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width:'100%',
-    flex: 1,
-    gap: 20,
-    backgroundColor: '#232',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    botoes : {
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: "column",
+        gap: 4,
+        marginTop: 10,
+    },
+    text: {
+        color: "white",
+        fontSize: 20,
+        textAlign: 'center',
+    },
+    botao: {
+        backgroundColor: "black",
+        padding: 20,
 
-  text: {
-    color: 'white',
-    fontSize: 20,
-  },
-
-  input: {
-    width: "80%",
-    height: 40,
-    color: "#fff",
-    borderWidth: 1.5,
-    borderRadius: 10,
-    borderColor: 'white',
-    padding: 10
-  },
-
-  title: {
-    color: "white",
-    fontSize: 31,
-    textAlign: "center",
-    width: "85%",
-    margin: "auto",
-  },
-
+    },
+    title: {
+        color: 'white',
+        fontSize: 25,
+        marginBottom: 10
+    }
 });

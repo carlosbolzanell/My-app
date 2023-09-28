@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable} from "react-native";
 
-export default function Jogo(props){
+export default function JogoVelha(props){
     
     const [botoes, setBotoes] = useState([
         [" ", " ", " "],
         [" ", " ", " "],
         [" ", " ", " "]
     ]);
+
+    useEffect(()=>{
+        verificarVitoria();
+    },[botoes])
 
     const verificarVitoria = ()=>{
         if(botoes[0][0] == botoes[1][1] && botoes[1][1] == botoes[2][2] && botoes[0][0] != " "){
@@ -23,6 +27,8 @@ export default function Jogo(props){
             if(botoes[i][0] == botoes [i][1] && botoes[i][0] == botoes[i][2] && botoes[i][0] != " "){
                 declararVencedor();
             }
+        }
+        for(let i=0; i<botoes.length; i++){
             if(botoes[0][i] == botoes [1][i] && botoes[1][i] == botoes[2][i] && botoes[1][i] != " "){
                 declararVencedor();
             } 
@@ -32,9 +38,9 @@ export default function Jogo(props){
 
     const declararVencedor = () =>{
         if(vez == "X"){
-            alert("O vencedor é: "+props.player1);
+            return `O vencedor é: ${props.player1}`;
         }else{
-            alert("O vencedor é: "+props.player2);
+            return `O vencedor é: ${props.player2}`;
         }
     }
 
@@ -51,19 +57,18 @@ export default function Jogo(props){
 
     function handleClickB(x, o){
         if(botoes[x][o] === ' '){
-            let novoTabuleiro = botoes;
+            let novoTabuleiro = [[...botoes[0]],[...botoes[1]],[...botoes[2]]];
             novoTabuleiro[x][o] = vez;
-            setBotoes(novoTabuleiro);
-            setTimeout(verificarVitoria(), 30000);
-            trocarVez();
-            
+            setBotoes([...novoTabuleiro]);
+            trocarVez();     
         }
     }
 
     return(
         <View style={styles.container}>
             <StatusBar style="auto" />
-            <Text style={styles.title}>Vez de</Text>
+            <Text style={styles.title}>Vez de </Text>
+            <Text style={styles.title}>{declararVencedor}</Text>
             <View style={styles.col1}>
                 <Pressable style={styles.btn} onPress = {()=>{
                     handleClickB(0,0);
