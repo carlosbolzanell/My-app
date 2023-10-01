@@ -38,9 +38,9 @@ export default function JogoVelha(props){
 
     const declararVencedor = () =>{
         if(vez == "X"){
-            return `O vencedor é: ${props.player1}`;
+            alert("O vencedor é: " + props.player1);
         }else{
-            return `O vencedor é: ${props.player2}`;
+            alert("O vencedor é: " + props.player2);
         }
     }
 
@@ -68,7 +68,6 @@ export default function JogoVelha(props){
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text style={styles.title}>Vez de </Text>
-            <Text style={styles.title}>{declararVencedor}</Text>
             <View style={styles.col1}>
                 <Pressable style={styles.btn} onPress = {()=>{
                     handleClickB(0,0);

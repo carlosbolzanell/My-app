@@ -11,7 +11,7 @@ import JogoForca from './src/Jogo-Forca/JogoForca';
 
 export default function App() {
 
-const [scream, setScream] = useState("jogoForca");
+const [scream, setScream] = useState("homeForca");
 const [palavra, setPalavra] = useState("");
 const [player1, setPlayer1] = useState("");
 const [player2, setPlayer2] = useState("");
