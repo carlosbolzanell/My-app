@@ -30,7 +30,7 @@ export default function JogoForca(props){
     }
     else{
       let letrasUtilizadas = letrasUsadas;
-      letrasUtilizadas += letra+", ";
+      letrasUtilizadas += letra+" ";
       setLetrasUsadas(letrasUtilizadas);
       input.value = "";
       let palavraNova = [...letras];
@@ -61,11 +61,6 @@ export default function JogoForca(props){
       
     }
   }
-    
-
-    // const handleClick = () =>{
-
-    // }
 
     return(
         <View style={styles.container}>
