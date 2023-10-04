@@ -1,17 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import Home from './src/Home';
 import HomeVelha from './src/Jogo-Velha/HomeVelha';
 import JogoVelha from './src/Jogo-Velha/JogoVelha';
-import Home from './src/Home';
 import HomeForca from './src/Jogo-Forca/HomeForca';
-import HomeMemoria from './src/Jogo-Memoria/HomeMemoria';
 import JogoForca from './src/Jogo-Forca/JogoForca';
+import HomeMemoria from './src/Jogo-Memoria/HomeMemoria';
+import JogoMemoria from './src/Jogo-Memoria';
 
 
 export default function App() {
 
-const [scream, setScream] = useState("homeForca");
+const [scream, setScream] = useState("jogoMemoria");
 const [palavra, setPalavra] = useState("");
 const [player1, setPlayer1] = useState("");
 const [player2, setPlayer2] = useState("");
@@ -33,7 +34,8 @@ const changeScream = (newScream) => setScream(newScream);
       {checkScream('jogoVelha') && <JogoVelha changeScream={changeScream} player1={player1} player2 = {player2}/>}
       {checkScream('homeForca') && <HomeForca changeScream={changeScream} setPalavra={setPalavra}/>}
       {checkScream('jogoForca') && <JogoForca changeScream={changeScream} palavra={palavra}/>}
-      {checkScream('homeMemoria') && <HomeMemoria changeScream={changeScream} setPalavra={setPalavra}/>}
+      {checkScream('homeMemoria') && <HomeMemoria changeScream={changeScream} mudarNomeJogadores={setJogadores}/>}
+      {checkScream('jogoMemoria') && <JogoMemoria changeScream={changeScream} player1={player1} player2={player2}/>}
     </View>
   );
 }

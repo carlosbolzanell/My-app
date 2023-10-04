@@ -1,4 +1,4 @@
-import { Button, View, StyleSheet, Text, Pressable } from "react-native";
+import { View, StyleSheet, Text, Pressable } from "react-native";
 import { StatusBar } from 'expo-status-bar';
 
 export default function Home(props){

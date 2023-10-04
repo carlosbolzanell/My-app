@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, Pressable } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Pressable } from 'react-native';
 
 export default function HomeMemoria(props) {
 
@@ -13,7 +13,7 @@ const handClick = ()=>{
     }else{
       alert(player1 +" x "+ player2);
       props.mudarNomeJogadores(player1, player2);
-      props.changeScream('jogoMemoria')
+      props.changeScream('jogoMemoria');
   }
 }
 const goBack = () =>{
