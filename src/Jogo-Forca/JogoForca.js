@@ -23,7 +23,6 @@ export default function JogoForca(props){
         if(props.palavra.includes(letra)){
           alert("Parabens, você descobriu a palavra "+props.palavra+ "!");
         }else{
-          alert("Palavra errada, -1 vida");
           //perdeu vida na lógica
         }
       }
@@ -67,10 +66,10 @@ export default function JogoForca(props){
             <StatusBar style="auto" />
             <View>
               <Text id="texto" style={styles.text}>Letra Usadas: {letrasUsadas}</Text>
-              <Text id="texto" style={styles.text}>{palavraMostrada}</Text>
+              <Text id="texto" style={styles.palavra}>{palavraMostrada}</Text>
             </View>
             <TextInput id="input" style={styles.input} placeholder="Digite a letra ou a Palavra" onChangeText={setLetra}/>
-            <Pressable style={styles.btn} onPress={verificarLetra}><Text style={styles.text}>Enviar</Text></Pressable>
+            <Pressable style={styles.btn} onPress={verificarLetra}><Text style={styles.textBtn}>Enviar</Text></Pressable>
         </View>
     )
 }
@@ -78,37 +77,40 @@ export default function JogoForca(props){
 const styles = StyleSheet.create({
     container: {
       gap: 20,
-      backgroundColor: '#232',
+      backgroundColor: '##62B3F0',
       alignItems: 'center',
       justifyContent: 'center',
     },
   
     text: {
-      color: 'white',
+      color: 'black',
       fontSize: 20,
+      maxWidth: 130,
     },
   
     input: {
       width: "100%",
       height: 40,
-      color: "#fff",
+      color: "black",
       borderWidth: 1.5,
       borderRadius: 10,
-      borderColor: 'white',
+      borderColor: 'black',
       padding:(50,20)
-    },
-  
-    title: {
-      color: "white",
-      fontSize: 25,
-      textAlign: "center",
-      width: "85%",
-      margin: "auto",
-    },
+    }, 
     btn: {
-      backgroundColor: "blue",
+      backgroundColor: "#2D526E",
       padding: 10,
       borderRadius: 10,
+    },
+    palavra:{
+      color: 'black',
+      fontSize: 20,
+      textAlign: 'center',
+
+    },
+    textBtn:{
+      color: 'white',
+      fontSize: 20,
     }
   
   });

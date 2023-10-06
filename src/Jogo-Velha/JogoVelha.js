@@ -2,36 +2,59 @@ import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { StyleSheet, View, Text, Pressable} from "react-native";
 
+const valoresIniciais = [
+    [" ", " ", " "],
+    [" ", " ", " "],
+    [" ", " ", " "]
+];
+
 export default function JogoVelha(props){
     
-    const [botoes, setBotoes] = useState([
-        [" ", " ", " "],
-        [" ", " ", " "],
-        [" ", " ", " "]
-    ]);
+    const [botoes, setBotoes] = useState(valoresIniciais);
 
     useEffect(()=>{
         verificarVitoria();
     },[botoes])
 
     const verificarVitoria = ()=>{
+        let vencedor = false;
         if(botoes[0][0] == botoes[1][1] && botoes[1][1] == botoes[2][2] && botoes[0][0] != " "){
             declararVencedor();
+            vencedor = true;
+            props.changeScream('home');
         }
 
         if(botoes[0][2] == botoes[1][1] && botoes[1][1] == botoes[2][0] && botoes[1][1] != " "){
             declararVencedor();
+            vencedor = true;
+            props.changeScream('home');
         }
 
         for(let i=0; i<botoes.length; i++){
             if(botoes[i][0] == botoes [i][1] && botoes[i][0] == botoes[i][2] && botoes[i][0] != " "){
                 declararVencedor();
+                vencedor = true;
+                props.changeScream('home');
             }
         }
         for(let i=0; i<botoes.length; i++){
             if(botoes[0][i] == botoes [1][i] && botoes[1][i] == botoes[2][i] && botoes[1][i] != " "){
                 declararVencedor();
+                vencedor = true;
+                props.changeScream('home');
             } 
+        }
+        let cont=0
+        botoes.forEach((linha, indexLinha) =>{
+            linha.forEach((coluna, indexColuna)=>{
+                if(coluna != " "){
+                    cont++
+                }
+            })
+        })
+        if(cont == 9 && !vencedor){
+            alert("Ninguém venceu!");
+            props.changeScream('home');
         }
 
     }
@@ -68,57 +91,23 @@ export default function JogoVelha(props){
         <View style={styles.container}>
             <StatusBar style="auto" />
             <Text style={styles.title}>Vez de </Text>
-            <View style={styles.col1}>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(0,0);
-                }}>
-                    <Text>{botoes[0][0]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(0,1);
-                }}>
-                    <Text>{botoes[0][1]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(0,2);
-                }}>
-                    <Text>{botoes[0][2]}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.col1}>
-            <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(1,0);
-                }}>
-                    <Text>{botoes[1][0]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(1,1);
-                }}>
-                    <Text>{botoes[1][1]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(1,2);
-                }}>
-                    <Text>{botoes[1][2]}</Text>
-                </Pressable>
-            </View>
-            <View style={styles.col1}>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(2,0);
-                }}>
-                    <Text>{botoes[2][0]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(2,1);
-                }}>
-                    <Text>{botoes[2][1]}</Text>
-                </Pressable>
-                <Pressable style={styles.btn} onPress = {()=>{
-                    handleClickB(2,2);
-                }}>
-                    <Text>{botoes[2][2]}</Text>
-                </Pressable>
-            </View>
+            {
+                botoes.map((linha, indexLinha) =>{
+                    return(
+                        <View key={`${linha}${indexLinha}`} style={styles.col1}>
+                            {
+                                linha.map((coluna, indexColuna)=>(
+                                    <Pressable key={`´${coluna}${indexColuna}`} style={styles.btn} onPress={()=> handleClickB(indexLinha, indexColuna)} >
+                                        <View>
+                                            <Text style={styles.game}>{coluna}</Text>
+                                        </View>
+                                    </Pressable>
+                                ))
+                            }
+                        </View>
+                    )
+                })
+            }
         </View>
     )
     
@@ -128,13 +117,15 @@ const styles = StyleSheet.create({
     container: {
         width:'100%',
         flex: 1,
-        backgroundColor: '#232',
+        backgroundColor: '#62B3F0',
         alignItems: 'center',
         justifyContent: 'center',
       },
       title: {
-        color: "white",
-        fontSize: 20,
+        color: "black",
+        fontSize: 30,
+        fontWeight: 400,
+        marginBottom: 20,
       },
       col1: {
         flexDirection: "row",
@@ -142,8 +133,15 @@ const styles = StyleSheet.create({
         marginBottom: 10,
       },
       btn: {
-        width: 40,
-        height: 40,
-        backgroundColor: "red"
+        backgroundColor: "#2D526E",
+        padding: 50,
+        maxHeight: 10,
+        maxWidth: 10,
+        alignItems: "center",
+        justifyContent: 'center',
+      },
+      game: {
+        color: 'white',
+        fontSize: 20,
       }
 });

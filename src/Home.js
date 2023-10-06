@@ -52,9 +52,10 @@ const styles = StyleSheet.create({
     botoes : {
         flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
         flexDirection: "column",
-        gap: 4,
-        marginTop: 10,
+        gap: 8,
+        marginTop: 30,
     },
     text: {
         color: "white",
@@ -62,13 +63,17 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     botao: {
-        backgroundColor: "black",
+        backgroundColor: "#2D526E",
         padding: 20,
+        width: 300,
+        borderRadius: 8,
 
     },
     title: {
-        color: 'white',
-        fontSize: 25,
-        marginBottom: 10
+        color: 'black',
+        fontSize: 32,
+        marginBottom: 10,
+        fontWeight: 400,
+        textAlign: 'center'
     }
 });

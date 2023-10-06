@@ -23,9 +23,9 @@ const goBack = () =>{
     <View style={styles.container}>
       <Text style={styles.title}>Bem vindo ao Jogo da Forca digite a palavra que deseje para o jogo</Text>
       <Text style={styles.text}>Palavra: {palavra}</Text>
-      <TextInput style={styles.input} placeholderTextColor = "white" placeholder="Palavra" onChangeText={setPalavra} />
-      <Pressable onPress={handClick} style={styles.btn}><Text style={styles.text}>Jogar</Text></Pressable>
-      <Pressable onPress={goBack} style={styles.btn}><Text style={styles.text}>Voltar a Página Inicial</Text></Pressable>
+      <TextInput style={styles.input} placeholderTextColor = "black" placeholder="Palavra" onChangeText={setPalavra} />
+      <Pressable onPress={handClick} style={styles.btn}><Text style={styles.textBtn}>Jogar</Text></Pressable>
+      <Pressable onPress={goBack} style={styles.btn}><Text style={styles.textBtn}>Voltar a Página Inicial</Text></Pressable>
       <StatusBar style="auto" />
     </View>
   );
@@ -34,37 +34,41 @@ const goBack = () =>{
 const styles = StyleSheet.create({
   container: {
     gap: 20,
-    backgroundColor: '#232',
+    backgroundColor: '#62B3F0',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
   text: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
   },
 
   input: {
     width: "80%",
     height: 40,
-    color: "#fff",
+    color: "black",
     borderWidth: 1.5,
     borderRadius: 10,
-    borderColor: 'white',
+    borderColor: 'black',
     padding: 10
   },
 
   title: {
-    color: "white",
+    color: "black",
     fontSize: 25,
     textAlign: "center",
     width: "85%",
     margin: "auto",
   },
   btn: {
-    backgroundColor: "blue",
+    backgroundColor: "#2D526E",
     padding: 10,
     borderRadius: 10,
+  },
+  textBtn:{
+    color: 'white',
+    fontSize: 20,
   }
 
 });
