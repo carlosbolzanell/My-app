@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { View, Text, Pressable, StyleSheet, TextInput} from "react-native";
+import { View, Text, Pressable, StyleSheet, TextInput, Image} from "react-native";
 import { StatusBar } from "react-native";
+
+const imagensForca = [require("../assets/forca6.png"), require("../assets/forca5.png"), require("../assets/forca4.png"), require("../assets/forca3.png"), require("../assets/forca2.png"), require("../assets/forca1.png"), require("../assets/forca0.png")]
 
 export default function JogoForca(props){
   
@@ -14,6 +16,19 @@ export default function JogoForca(props){
   const [palavraMostrada, setPalavraMostrada] = useState(primeiraPalavra);
   const [letra, setLetra] = useState("");
   const [letrasUsadas, setLetrasUsadas] = useState("");
+  const [contador, setContador] = useState(0)
+  const [imagem, setImagem] = useState(imagensForca[0])
+
+
+  const checkWin = () =>{
+    if(contador == 6){
+      alert("Você o deixou morrer! Press F");
+    }
+  }
+
+  const goBack = () =>{
+    props.changeScream('home');
+  }
 
   const verificarLetra = () => {
     if(letra.length > 1){
@@ -23,7 +38,9 @@ export default function JogoForca(props){
         if(props.palavra.includes(letra)){
           alert("Parabens, você descobriu a palavra "+props.palavra+ "!");
         }else{
-          //perdeu vida na lógica
+          setContador(contador+1);
+          setImagem(imagensForca[contador])
+          checkWin();
         }
       }
     }
@@ -38,7 +55,8 @@ export default function JogoForca(props){
         if(char === letra){
           palavraNovaMostrada[index] = letra;
         }else{
-          //perdeu vida
+          setContador(contador+1);
+          setImagem(imagensForca[contador])
         }
       })
       setPalavraMostrada(palavraNovaMostrada);
@@ -66,10 +84,16 @@ export default function JogoForca(props){
             <StatusBar style="auto" />
             <View>
               <Text id="texto" style={styles.text}>Letra Usadas: {letrasUsadas}</Text>
+              <Image
+                style={styles.imgForca}
+                source={imagem}
+              >
+              </Image>
               <Text id="texto" style={styles.palavra}>{palavraMostrada}</Text>
             </View>
             <TextInput id="input" style={styles.input} placeholder="Digite a letra ou a Palavra" onChangeText={setLetra}/>
             <Pressable style={styles.btn} onPress={verificarLetra}><Text style={styles.textBtn}>Enviar</Text></Pressable>
+            <Pressable onPress={goBack} style={styles.btn}><Text style={styles.textBtn}>Voltar a Página Inicial</Text></Pressable>
         </View>
     )
 }
@@ -111,6 +135,20 @@ const styles = StyleSheet.create({
     textBtn:{
       color: 'white',
       fontSize: 20,
+    },
+    imgForca: {
+      width: 100,
+      height: 100,
+    },
+    btn: {
+      backgroundColor: "#2D526E",
+      padding: 10,
+      borderRadius: 10,
+    },
+    textBtn:{
+      fontSize: 20,
+      color: 'white',
+      fontWeight: 400,
     }
   
   });

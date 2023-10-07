@@ -12,7 +12,7 @@ import JogoMemoria from './src/Jogo-Memoria';
 
 export default function App() {
 
-const [scream, setScream] = useState("jogoMemoria");
+const [scream, setScream] = useState("jogoForca");
 const [palavra, setPalavra] = useState("");
 const [player1, setPlayer1] = useState("");
 const [player2, setPlayer2] = useState("");
