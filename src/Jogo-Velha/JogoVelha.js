@@ -97,7 +97,7 @@ export default function JogoVelha(props){
                         <View key={`${linha}${indexLinha}`} style={styles.col1}>
                             {
                                 linha.map((coluna, indexColuna)=>(
-                                    <Pressable key={`´${coluna}${indexColuna}`} style={styles.btn} onPress={()=> handleClickB(indexLinha, indexColuna)} >
+                                    <Pressable key={`${coluna}${indexColuna}`} style={styles.btn} onPress={()=> handleClickB(indexLinha, indexColuna)} >
                                         <View>
                                             <Text style={styles.game}>{coluna}</Text>
                                         </View>

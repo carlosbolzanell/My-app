@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View, Text, Pressable, StyleSheet, TextInput, Image} from "react-native";
 import { StatusBar } from "react-native";
 
@@ -16,13 +16,18 @@ export default function JogoForca(props){
   const [palavraMostrada, setPalavraMostrada] = useState(primeiraPalavra);
   const [letra, setLetra] = useState("");
   const [letrasUsadas, setLetrasUsadas] = useState("");
-  const [contador, setContador] = useState(0)
+  const [contador, setContador] = useState(1)
   const [imagem, setImagem] = useState(imagensForca[0])
+
+  useEffect(() => {
+    verificarPalavra()
+}, palavraMostrada);
 
 
   const checkWin = () =>{
     if(contador == 6){
-      alert("Você o deixou morrer! Press F");
+      alert("Você o deixou morrer! Press F \nA palavra era "+ props.palavra.toUpperCase());
+      props.changeScream('home')
     }
   }
 
@@ -35,48 +40,58 @@ export default function JogoForca(props){
       if(letra.length != props.palavra.length){
         alert("Digite uma letra ou a palavra certa!")
       }else{
-        if(props.palavra.includes(letra)){
+        if(props.palavra.toUpperCase().includes(letra.toUpperCase())){
           alert("Parabens, você descobriu a palavra "+props.palavra+ "!");
         }else{
+          alert("Palavra Errada!")
           setContador(contador+1);
-          setImagem(imagensForca[contador])
+          setImagem(imagensForca[contador]);
           checkWin();
         }
       }
     }
     else{
-      let letrasUtilizadas = letrasUsadas;
-      letrasUtilizadas += letra+" ";
-      setLetrasUsadas(letrasUtilizadas);
-      input.value = "";
-      let palavraNova = [...letras];
-      let palavraNovaMostrada = [...palavraMostrada];
-      palavraNova.map((char, index) =>{
-        if(char === letra){
-          palavraNovaMostrada[index] = letra;
-        }else{
-          setContador(contador+1);
-          setImagem(imagensForca[contador])
+      let jaUsada = false;
+      const verificacao = letrasUsadas.split(" ");
+      verificacao.map((caracter)=>{
+        if(caracter == letra.toUpperCase()){
+          jaUsada = true;
         }
       })
-      setPalavraMostrada(palavraNovaMostrada);
-      verificarPalavra();
+      if(!jaUsada){
+        let letrasUtilizadas = letrasUsadas;
+        letrasUtilizadas += letra.toUpperCase()+" ";
+        setLetrasUsadas(letrasUtilizadas);
+        input.value = "";
+        let palavraNova = [...letras];
+        let palavraNovaMostrada = [...palavraMostrada];
+        let cont = 0;
+        palavraNova.map((char, index) =>{
+          if(char.toUpperCase() === letra.toUpperCase()){
+            palavraNovaMostrada[index] = letra.toUpperCase();
+            cont++;
+          }
+        })
+        if(cont == 0){
+          setContador(contador+1);
+          setImagem(imagensForca[contador]);
+          checkWin();
+        }
+        setPalavraMostrada(palavraNovaMostrada);
+      }else{
+        alert("Essa letra já foi utilizada!");
+        input.value = "";
+      }
     }
     
   }
 
   const verificarPalavra = () =>{
-    let cont = 0;
-    palavraMostrada.map((char)=>{
-      if(char != "_ "){
-        cont++;
-      }
-    })
-
-    if(cont === props.palavra.length - 1){
-      alert("Parabens, você descobriu a palavra "+props.palavra+ "!");
-      
+    if(palavraMostrada.toString() == letras.toString().toUpperCase()){
+      alert("Parabens, você descobriu a palavra "+props.palavra.toUpperCase()+ "!");
+      props.changeScream("home");
     }
+    
   }
 
     return(
@@ -119,7 +134,8 @@ const styles = StyleSheet.create({
       borderWidth: 1.5,
       borderRadius: 10,
       borderColor: 'black',
-      padding:(50,20)
+      padding:(50,20),
+      marginTop: 20,
     }, 
     btn: {
       backgroundColor: "#2D526E",
@@ -130,6 +146,7 @@ const styles = StyleSheet.create({
       color: 'black',
       fontSize: 20,
       textAlign: 'center',
+      marginTop: 20,
 
     },
     textBtn:{
@@ -137,8 +154,9 @@ const styles = StyleSheet.create({
       fontSize: 20,
     },
     imgForca: {
-      width: 100,
-      height: 100,
+      marginTop: 20,
+      width: 150,
+      height: 150,
     },
     btn: {
       backgroundColor: "#2D526E",
