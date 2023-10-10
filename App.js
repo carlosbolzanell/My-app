@@ -12,7 +12,11 @@ import JogoMemoria from './src/Jogo-Memoria';
 
 export default function App() {
 
+<<<<<<< HEAD
 const [scream, setScream] = useState("home");
+=======
+const [scream, setScream] = useState("jogoForca");
+>>>>>>> b1f00647a1fc63d1568f09beb530f49ba7810b76
 const [palavra, setPalavra] = useState("");
 const [player1, setPlayer1] = useState("");
 const [player2, setPlayer2] = useState("");
@@ -44,7 +48,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     gap: 20,
-    backgroundColor: '#232',
+    backgroundColor: '#62B3F0',
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -22,52 +22,61 @@ const goBack = () =>{
 
   return (
     <View style={styles.container}>
+      <StatusBar style="auto" />
       <Text style={styles.title}>Bem vindo ao Jogo da Velha digite o nome dos jogadores 1 e 2</Text>
       <Text style={styles.text}>Nome: {player1}</Text>
-      <TextInput style={styles.input} placeholderTextColor = "white" placeholder="Player 1" onChangeText={setPlayer1} />
+      <TextInput style={styles.input} placeholderTextColor = "black" placeholder="Player 1" onChangeText={setPlayer1} />
       <Text style={styles.text}>Nome: {player2}</Text>
-      <TextInput style={styles.input} placeholderTextColor = "white" placeholder="Player 2" onChangeText={setPlayer2} />
-      <Pressable onPress={handClick} style={styles.btn}><Text style={styles.text}>Jogar</Text></Pressable>
-      <Pressable onPress={goBack} style={styles.btn}><Text style={styles.text}>Voltar a Página Inicial</Text></Pressable>
-      <StatusBar style="auto" />
+      <TextInput style={styles.input} placeholderTextColor = "black" placeholder="Player 2" onChangeText={setPlayer2} />
+      <Pressable onPress={handClick} style={styles.btn}><Text style={styles.textBtn}>Jogar</Text></Pressable>
+      <Pressable onPress={goBack} style={styles.btn}><Text style={styles.textBtn}>Voltar a Página Inicial</Text></Pressable>
     </View>
+   
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
     gap: 20,
-    backgroundColor: '#232',
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#62B3F0',
   },
 
   text: {
-    color: 'white',
+    color: 'black',
     fontSize: 20,
+    fontWeight: 500,
   },
 
   input: {
     width: "80%",
     height: 40,
-    color: "#fff",
+    color: "black",
     borderWidth: 1.5,
     borderRadius: 10,
-    borderColor: 'white',
+    borderColor: 'black',
     padding: 10
   },
 
   title: {
-    color: "white",
+    color: "black",
+    fontWeight: 400,
     fontSize: 31,
     textAlign: "center",
     width: "85%",
     margin: "auto",
   },
   btn: {
-    backgroundColor: "blue",
+    backgroundColor: "#2D526E",
     padding: 10,
     borderRadius: 10,
+  },
+  textBtn:{
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 400,
   }
 
 });
